@@ -1,0 +1,26 @@
+{
+  "name": "vikiy-media-house",
+  "version": "2.0.0",
+  "description": "Vikiy Media House — creative portfolio for Victoria \"Vikiy\" Okoro. Video editing, videography, voiceover, AI-assisted production and monologue performance.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "smoke-test": "esbuild scripts/ssr-smoke-test.jsx --bundle --platform=node --format=cjs --jsx=automatic --outfile=.smoke-test-bundle.cjs && node .smoke-test-bundle.cjs && rm -f .smoke-test-bundle.cjs"
+  },
+  "dependencies": {
+    "framer-motion": "^11.15.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "esbuild": "^0.21.5",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.19",
+    "vite": "^5.4.11"
+  }
+}

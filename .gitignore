@@ -1,0 +1,5 @@
+node_modules
+dist
+.smoke-test-bundle.cjs
+.DS_Store
+*.local

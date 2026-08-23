@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Vikiy Media House — cinematic editorial direction
+   Restrained, confident motion with real depth. No gimmicks.
+   ========================================================================== */
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-feature-settings: "ss01" 1;
+  overflow-x: hidden;
+}
+
+#root {
+  overflow-x: clip;
+}
+
+/* ---------- fine film-grain texture (subtle, print-like) ---------- */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: .035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ---------- nav: solid on scroll ---------- */
+#site-nav { background: transparent; }
+#site-nav.nav-scrolled {
+  background: rgba(250,247,241,.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(5,7,15,.08);
+}
+.dark #site-nav.nav-scrolled {
+  background: rgba(11,19,48,.82);
+  border-bottom-color: rgba(250,247,241,.08);
+}
+
+/* ---------- underline-grow link ---------- */
+.link-grow {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size .5s cubic-bezier(.16,1,.3,1);
+}
+.link-grow:hover { background-size: 100% 1px; }
+
+/* ---------- theme toggle knob ---------- */
+.toggle-knob { transition: transform .35s cubic-bezier(.16,1,.3,1); }
+.dark .toggle-knob { transform: translateX(18px); }
+
+/* ---------- selection + scrollbar ---------- */
+::selection { background:#3B5FE0; color:#fff; }
+::-webkit-scrollbar { width: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1A2A63; border-radius: 999px; }
+.dark ::-webkit-scrollbar-thumb { background: #5B7FE044; }
+
+/* ---------- custom cursor: hide native cursor only when the ---------- */
+/* JS confirms a fine pointer (desktop) and reduced-motion is off      */
+.cursor-none-active,
+.cursor-none-active a,
+.cursor-none-active button {
+  cursor: none !important;
+}
+
+/* ---------- portrait / cinematic glow ---------- */
+.portrait-glow {
+  background: radial-gradient(closest-side, rgba(91,127,224,.35), rgba(123,95,224,.14) 55%, transparent 75%);
+  filter: blur(30px);
+}
+
+/* ---------- gradient text-fill helper for shimmer sweep ---------- */
+.bg-shimmer {
+  background-image: linear-gradient(110deg, transparent 40%, rgba(255,255,255,.16) 50%, transparent 60%);
+  background-size: 200% 100%;
+}
+
+/* ---------- radial spotlight that follows the cursor per-card ---------- */
+.spotlight {
+  background: radial-gradient(240px circle at var(--mx,50%) var(--my,50%), rgba(91,127,224,.14), transparent 70%);
+}
+.dark .spotlight {
+  background: radial-gradient(240px circle at var(--mx,50%) var(--my,50%), rgba(123,95,224,.20), transparent 70%);
+}
+
+/* ---------- faint fixed grid of tick marks used behind Services/Work ---------- */
+.tick-rule {
+  background-image: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 88px);
+  opacity: .06;
+}
+
+/* ---------- utility: clip long text nicely for eyebrow labels ---------- */
+.eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+}
+
+/* ==========================================================================
+   Reduced motion — bulletproof global override.
+   CSS keyframe / transition driven motion (Tailwind `animate-*`, hover
+   transitions) is neutralised here. Framer Motion elements additionally
+   check useReducedMotion() in JS so their spring/gesture animations are
+   skipped too — see ARCHITECTURE.md.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
